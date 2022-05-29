@@ -71,7 +71,7 @@ class HabitCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-            let item = self.dataSource.itemIdentifier(for: indexPath)!
+            guard let item = self.dataSource.itemIdentifier(for: indexPath) else {return nil}
             
             let favoriteToggle = UIAction(title: self.model.favoriteHabits.contains(item) ? "Unfavorite" : "Favorite") {
                 (action) in Settings.shared.toggleFavorite(item)

@@ -51,6 +51,19 @@ class UserCollectionViewController: UICollectionViewController {
         update()
     }
     
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (element) -> UIMenu? in
+            guard let item = self.dataSource.itemIdentifier(for: indexPath) else {return nil}
+            
+            let favoriteToggle = UIAction(title: item.isFollowed ? "Unfavorite" : "Favorite") {
+                (action) in Settings.shared.toggleFavorite(item.user)
+                self.updateCollectionView()
+            }
+            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: [favoriteToggle])
+        }
+        return config
+    }
+    
     //MARK: - Custom methods
     func update() {
         usersRequestTask?.cancel()

@@ -9,6 +9,7 @@ import Foundation
 
 struct Settings {
     
+    //MARK: - Enumerations
     enum Setting {
         static let favoriteHabits = "favoriteHabits"
         static let followedUserIDs = "followedUserIDs"
@@ -18,6 +19,7 @@ struct Settings {
     
     private let defaults = UserDefaults.standard
     
+    //MARK: - Privates methods
     private func archiveJSON<T: Encodable>(value: T, key: String) {
         let data = try! JSONEncoder().encode(value)
         let string = String(data: data, encoding: .utf8)
@@ -32,6 +34,7 @@ struct Settings {
         return try! JSONDecoder().decode(T.self, from: data)
     }
     
+    //MARK: - Mutating methods
     mutating func toggleFavorite(_ habit: Habit) {
         var favorites = favoriteHabits
         if favorites.contains(habit) {
@@ -42,6 +45,17 @@ struct Settings {
         favoriteHabits = favorites
     }
     
+    mutating func toggleFavorite(_ user: User) {
+        var updated = followedUserIDs
+        if updated.contains(user.id) {
+            updated = updated.filter {$0 != user.id}
+        }else{
+            updated.append(user.id)
+        }
+        followedUserIDs = updated
+    }
+    
+    //MARK: - Closures
     var favoriteHabits: [Habit] {
         get {
             return unarchiveJSON(key: Setting.favoriteHabits) ?? []
@@ -59,5 +73,7 @@ struct Settings {
              archiveJSON(value: newValue, key: Setting.followedUserIDs)
         }
     }
+    
+    
     
 }

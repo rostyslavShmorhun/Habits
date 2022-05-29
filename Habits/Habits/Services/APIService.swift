@@ -20,3 +20,18 @@ struct UserRequest: APIRequest {
     
     var path: String {"/users"}
 }
+
+struct HabitStatisticsRequest: APIRequest {
+    typealias Response = [HabitStatistics]
+    
+    var habitName: [String]?
+    var path: String { "/habitStats"}
+    
+    var queryItems: [URLQueryItem]? {
+        if let habitName = habitName {
+            return [URLQueryItem(name: "names", value: habitName.joined(separator: ","))]
+        }else {
+            return nil
+        }
+    }
+}

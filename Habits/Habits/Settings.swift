@@ -11,6 +11,7 @@ struct Settings {
     
     enum Setting {
         static let favoriteHabits = "favoriteHabits"
+        static let followedUserIDs = "followedUserIDs"
     }
     
     static var shared = Settings()
@@ -31,6 +32,16 @@ struct Settings {
         return try! JSONDecoder().decode(T.self, from: data)
     }
     
+    mutating func toggleFavorite(_ habit: Habit) {
+        var favorites = favoriteHabits
+        if favorites.contains(habit) {
+            favorites = favorites.filter {$0 != habit}
+        }else{
+            favorites.append(habit)
+        }
+        favoriteHabits = favorites
+    }
+    
     var favoriteHabits: [Habit] {
         get {
             return unarchiveJSON(key: Setting.favoriteHabits) ?? []
@@ -39,4 +50,14 @@ struct Settings {
             archiveJSON(value: newValue, key: Setting.favoriteHabits)
         }
     }
+    
+    var followedUserIDs: [String] {
+        get {
+            return unarchiveJSON(key: Setting.followedUserIDs) ?? []
+        }
+        set {
+             archiveJSON(value: newValue, key: Setting.followedUserIDs)
+        }
+    }
+    
 }

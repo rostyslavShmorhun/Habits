@@ -9,13 +9,16 @@ import Foundation
 import UIKit
 
 extension UICollectionViewDiffableDataSource {
-    func applySnapshotUsing(sectionIDs: [SectionIdentifierType],
+    func applySnapshotUsing(
+        sectionIDs: [SectionIdentifierType],
        itemsBySection: [SectionIdentifierType: [ItemIdentifierType]],
        sectionsRetainedIfEmpty: Set<SectionIdentifierType> =
        Set<SectionIdentifierType>()) {
-        applySnapshotUsing(sectionIDs: sectionIDs, itemsBySection:
-        itemsBySection, animatingDifferences: true,
-        sectionsRetainedIfEmpty: sectionsRetainedIfEmpty)
+        applySnapshotUsing(
+            sectionIDs: sectionIDs,
+            itemsBySection: itemsBySection,
+            animatingDifferences: true,
+            sectionsRetainedIfEmpty: sectionsRetainedIfEmpty)
     }
     
     func applySnapshotUsing(sectionIDs: [SectionIdentifierType],

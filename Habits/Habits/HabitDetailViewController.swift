@@ -55,6 +55,7 @@ class HabitDetailViewController: UIViewController {
     var dataSource: DataSourceType!
     var model = Model()
     var habitStatisticsRequestTask: Task<Void, Never>? = nil
+    var updateTimer: Timer?
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -77,6 +78,22 @@ class HabitDetailViewController: UIViewController {
     init?(coder: NSCoder, habit: Habit) {
         self.habit = habit
         super.init(coder: coder)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        update()
+        updateTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ _ in
+            self.update()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        updateTimer?.invalidate()
+        updateTimer = nil
     }
     
     //MARK: - Custom method
@@ -143,5 +160,4 @@ class HabitDetailViewController: UIViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-    //MARK: - SegueAction
 }

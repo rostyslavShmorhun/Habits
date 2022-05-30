@@ -133,9 +133,10 @@ class HabitCollectionViewController: UICollectionViewController {
         
         dataSource.supplementaryViewProvider = {
             (collectionView, kind, indexPath) in
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: SectionHeader.kind.indetifier,
-                                                                         withReuseIdentifier: SectionHeader.reuse.indetifier,
-                                                                         for: indexPath) as! NamedSectionHeaderView
+            let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: SectionHeader.kind.indetifier,
+                withReuseIdentifier: SectionHeader.reuse.indetifier,
+                for: indexPath) as! NamedSectionHeaderView
             
             let section = dataSource.snapshot().sectionIdentifiers[indexPath.section]
             switch section {
@@ -146,7 +147,6 @@ class HabitCollectionViewController: UICollectionViewController {
             }
             return header
         }
-        
         return dataSource
     }
     

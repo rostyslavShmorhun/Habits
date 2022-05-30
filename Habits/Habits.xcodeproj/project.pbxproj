@@ -29,6 +29,8 @@
 		114F63332843A153003C03A8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F63322843A153003C03A8 /* User.swift */; };
 		114F633C2843F8AA003C03A8 /* HabitStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F633B2843F8AA003C03A8 /* HabitStatistics.swift */; };
 		114F633E2843F952003C03A8 /* UserCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F633D2843F952003C03A8 /* UserCount.swift */; };
+		114F63422844C864003C03A8 /* UserStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F63412844C864003C03A8 /* UserStatistics.swift */; };
+		114F63442844C8D4003C03A8 /* HabitCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114F63432844C8D4003C03A8 /* HabitCount.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		114F63322843A153003C03A8 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		114F633B2843F8AA003C03A8 /* HabitStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitStatistics.swift; sourceTree = "<group>"; };
 		114F633D2843F952003C03A8 /* UserCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCount.swift; sourceTree = "<group>"; };
+		114F63412844C864003C03A8 /* UserStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatistics.swift; sourceTree = "<group>"; };
+		114F63432844C8D4003C03A8 /* HabitCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCount.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +98,6 @@
 				114F632F284384D4003C03A8 /* Views */,
 				114F632528426418003C03A8 /* Services */,
 				114F631D284260FB003C03A8 /* Models */,
-				114F62FC2842536D003C03A8 /* AppDelegate.swift */,
-				114F62FE2842536D003C03A8 /* SceneDelegate.swift */,
-				114F63022842536D003C03A8 /* Main.storyboard */,
 				114F63052842536F003C03A8 /* Assets.xcassets */,
 				114F63072842536F003C03A8 /* LaunchScreen.storyboard */,
 				114F630A2842536F003C03A8 /* Info.plist */,
@@ -107,12 +108,10 @@
 		114F631D284260FB003C03A8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				114F631F28426145003C03A8 /* Habit.swift */,
+				114F63402844C84C003C03A8 /* User */,
+				114F633F2844C824003C03A8 /* Habit */,
 				114F63212842618F003C03A8 /* Category.swift */,
 				114F6323284261D0003C03A8 /* Color.swift */,
-				114F63322843A153003C03A8 /* User.swift */,
-				114F633B2843F8AA003C03A8 /* HabitStatistics.swift */,
-				114F633D2843F952003C03A8 /* UserCount.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -130,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				114F6330284384FE003C03A8 /* NamedSectionHeaderView.swift */,
+				114F63022842536D003C03A8 /* Main.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -186,6 +186,8 @@
 		114F63392843BE8D003C03A8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				114F62FE2842536D003C03A8 /* SceneDelegate.swift */,
+				114F62FC2842536D003C03A8 /* AppDelegate.swift */,
 				114F632A28436C7E003C03A8 /* Settings.swift */,
 			);
 			name = Common;
@@ -197,6 +199,26 @@
 				114F632D2843755E003C03A8 /* UICollectionViewDiffableDataSource+ViewModel.swift */,
 			);
 			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		114F633F2844C824003C03A8 /* Habit */ = {
+			isa = PBXGroup;
+			children = (
+				114F631F28426145003C03A8 /* Habit.swift */,
+				114F633B2843F8AA003C03A8 /* HabitStatistics.swift */,
+				114F63432844C8D4003C03A8 /* HabitCount.swift */,
+			);
+			path = Habit;
+			sourceTree = "<group>";
+		};
+		114F63402844C84C003C03A8 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				114F633D2843F952003C03A8 /* UserCount.swift */,
+				114F63322843A153003C03A8 /* User.swift */,
+				114F63412844C864003C03A8 /* UserStatistics.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,10 +301,12 @@
 				114F6331284384FE003C03A8 /* NamedSectionHeaderView.swift in Sources */,
 				114F632B28436C7F003C03A8 /* Settings.swift in Sources */,
 				114F63332843A153003C03A8 /* User.swift in Sources */,
+				114F63422844C864003C03A8 /* UserStatistics.swift in Sources */,
 				114F631C28425FBE003C03A8 /* UserDetailViewController.swift in Sources */,
 				114F631428425B18003C03A8 /* HabitCollectionViewController.swift in Sources */,
 				114F62FD2842536D003C03A8 /* AppDelegate.swift in Sources */,
 				114F633C2843F8AA003C03A8 /* HabitStatistics.swift in Sources */,
+				114F63442844C8D4003C03A8 /* HabitCount.swift in Sources */,
 				114F631828425B43003C03A8 /* LogHabitCollectionViewController.swift in Sources */,
 				114F632028426145003C03A8 /* Habit.swift in Sources */,
 				114F632928426703003C03A8 /* APIService.swift in Sources */,

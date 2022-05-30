@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 extension UICollectionViewDiffableDataSource {
+    
     func applySnapshotUsing(
         sectionIDs: [SectionIdentifierType],
        itemsBySection: [SectionIdentifierType: [ItemIdentifierType]],
@@ -38,6 +39,7 @@ extension UICollectionViewDiffableDataSource {
             
             snapshot.appendSections([sectionID])
             snapshot.appendItems(sectionItems, toSection: sectionID)
+            snapshot.reloadItems(sectionItems)
         }
         
         self.apply(snapshot, animatingDifferences:

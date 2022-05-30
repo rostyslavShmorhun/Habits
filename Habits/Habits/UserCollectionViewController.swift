@@ -8,13 +8,13 @@
 import UIKit
 
 class UserCollectionViewController: UICollectionViewController {
-
+    
     typealias DataSourceType = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Item>
     
     var model = Model()
     var dataSource: DataSourceType!
     var usersRequestTask: Task<Void, Never>? = nil
-
+    
     enum ViewModel{
         typealias Section = Int
         
@@ -96,10 +96,10 @@ class UserCollectionViewController: UICollectionViewController {
     
     func createDataSource() -> DataSourceType {
         let dataSource = DataSourceType(collectionView: collectionView) {
-           (collectionView, indexPath, item) in
+            (collectionView, indexPath, item) in
             let cell =
-               collectionView.dequeueReusableCell(withReuseIdentifier:
-               "User", for: indexPath) as! UICollectionViewListCell
+            collectionView.dequeueReusableCell(withReuseIdentifier:
+                                                "User", for: indexPath) as! UICollectionViewListCell
             
             var content = cell.defaultContentConfiguration()
             content.text = item.user.name
@@ -123,27 +123,27 @@ class UserCollectionViewController: UICollectionViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
         let groupSize =
-           NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-                                  heightDimension: .fractionalWidth(0.45))
+        NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                               heightDimension: .fractionalWidth(0.45))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
         group.interItemSpacing = .fixed(20)
-        
-        
-        //let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
-         //                                       heightDimension: .absolute(36))
-        
-//       let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize,
-//                                                                        elementKind: SectionHeader.kind.indetifier,
-//                                                                        alignment: .top)
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets( top: 20,
                                                          leading: 20,
                                                          bottom: 20,
                                                          trailing: 10)
-        //section.boundarySupplementaryItems = [sectionHeader]
         
         return UICollectionViewCompositionalLayout(section: section)
     }
     
+    @IBSegueAction func showUserDetail(_ coder: NSCoder, sender: UICollectionViewCell?) -> UserDetailViewController? {
+        guard let cell = sender,
+              let indexPath = collectionView.indexPath(for: cell),
+              let item = dataSource.itemIdentifier(for: indexPath) else {
+            return nil
+        }
+        return UserDetailViewController(coder: coder, user: item.user)
+    }
 }
+

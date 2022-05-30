@@ -67,7 +67,6 @@ class HabitDetailViewController: UIViewController {
         dataSource = createDataSource()
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = createLayout()
-        
         update()
     }
     

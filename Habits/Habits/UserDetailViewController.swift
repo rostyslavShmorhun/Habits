@@ -78,14 +78,16 @@ class UserDetailViewController: UIViewController {
         collectionView.collectionViewLayout = createLayout()
         collectionView.register(NamedSectionHeaderView.self, forSupplementaryViewOfKind: SectionHeader.kind.indetifier, withReuseIdentifier: SectionHeader.reuse.indetifier)
         
-        update()
-        
         imageRequestTask = Task {
             if let image = try? await ImageRequest(imageID: user.id).send() {
                 self.profileImageView.image = image
             }
             imageRequestTask = nil
         }
+        
+        update()
+        view.backgroundColor = user.color?.uiColor ?? .white
+        tabBarAppearance()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,6 +112,17 @@ class UserDetailViewController: UIViewController {
         self.user = user
     }
     
+    
+    //MARK: - Cuctom Methods
+    func tabBarAppearance() {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.backgroundColor = .quaternarySystemFill
+        tabBarController?.tabBar.scrollEdgeAppearance = tabBarAppearance
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.backgroundColor = .quaternarySystemFill
+        navigationItem.scrollEdgeAppearance = navBarAppearance
+    }
     func update() {
         userStatisticsRequestTask?.cancel()
         userStatisticsRequestTask = Task {

@@ -7,19 +7,19 @@
 
 import UIKit
 
-@MainActor
+let favoriteHabitColor = UIColor(hue: 0.15, saturation: 1,
+   brightness: 0.9, alpha: 1)
+
 class HabitCollectionViewController: UICollectionViewController {
 
     typealias DataSourceType =
        UICollectionViewDiffableDataSource<ViewModel.Section,
        ViewModel.Item>
     
-  
     //MARK: - Properties
     var dataSource: DataSourceType!
     var model = Model()
     var habitsRequestTask: Task<Void, Never>? = nil
-    
     
     enum ViewModel {
         enum Section: Hashable, Comparable {
@@ -34,6 +34,14 @@ class HabitCollectionViewController: UICollectionViewController {
                     return true
                 case (_, .favorites):
                     return false
+                }
+            }
+            var sectionColor: UIColor {
+                switch self {
+                case .favorites:
+                    return favoriteHabitColor
+                case .category(let category):
+                    return category.color.uiColor
                 }
             }
         }
@@ -117,6 +125,12 @@ class HabitCollectionViewController: UICollectionViewController {
         dataSource.applySnapshotUsing(sectionIDs: sectionIDs, itemsBySection: itemsBySection)
     }
     
+    func configureCell(_ cell: UICollectionViewListCell, _ item: ViewModel.Item) {
+        var content = cell.defaultContentConfiguration()
+        content.text = item.name
+        cell.contentConfiguration = content
+    }
+    
     func createDataSource() -> DataSourceType {
         let dataSource = DataSourceType(collectionView: collectionView) {
            (collectionView, indexPath, item) in
@@ -124,9 +138,7 @@ class HabitCollectionViewController: UICollectionViewController {
                collectionView.dequeueReusableCell(withReuseIdentifier:
                "Habit", for: indexPath) as! UICollectionViewListCell
             
-            var content = cell.defaultContentConfiguration()
-            content.text = item.name
-            cell.contentConfiguration = content
+            self.configureCell(cell, item)
             
             return cell
         }
@@ -145,6 +157,7 @@ class HabitCollectionViewController: UICollectionViewController {
             case .category(let category):
                 header.nameLabel.text = category.name
             }
+            header.backgroundColor = section.sectionColor
             return header
         }
         return dataSource

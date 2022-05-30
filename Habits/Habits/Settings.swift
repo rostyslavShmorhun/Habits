@@ -9,6 +9,9 @@ import Foundation
 
 struct Settings {
     
+    //MARK: - Properties
+    let currentUser = User(id: "Id", name: "User", color: nil , bio: "SomeBio")
+
     //MARK: - Enumerations
     enum Setting {
         static let favoriteHabits = "favoriteHabits"
@@ -73,7 +76,4 @@ struct Settings {
              archiveJSON(value: newValue, key: Setting.followedUserIDs)
         }
     }
-    
-    
-    
 }

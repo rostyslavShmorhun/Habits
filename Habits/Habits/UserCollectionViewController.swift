@@ -101,6 +101,8 @@ class UserCollectionViewController: UICollectionViewController {
             collectionView.dequeueReusableCell(withReuseIdentifier:
                                                 "User", for: indexPath) as! UICollectionViewListCell
             
+            var backgroundConfiguration = UIBackgroundConfiguration.clear()
+            backgroundConfiguration.backgroundColor = item.user.color?.uiColor ?? UIColor.systemGray4
             var content = cell.defaultContentConfiguration()
             content.text = item.user.name
             content.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 11,
@@ -109,10 +111,10 @@ class UserCollectionViewController: UICollectionViewController {
                                                                        trailing: 8)
             content.textProperties.alignment = .center
             cell.contentConfiguration = content
+            cell.backgroundConfiguration = backgroundConfiguration
             
             return cell
         }
-        
         return dataSource
     }
     
@@ -126,9 +128,10 @@ class UserCollectionViewController: UICollectionViewController {
         NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                heightDimension: .fractionalWidth(0.45))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
-        group.interItemSpacing = .fixed(20)
+        group.interItemSpacing = .fixed(10)
         
         let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 10
         section.contentInsets = NSDirectionalEdgeInsets( top: 20,
                                                          leading: 20,
                                                          bottom: 20,

@@ -79,6 +79,13 @@ class UserDetailViewController: UIViewController {
         collectionView.register(NamedSectionHeaderView.self, forSupplementaryViewOfKind: SectionHeader.kind.indetifier, withReuseIdentifier: SectionHeader.reuse.indetifier)
         
         update()
+        
+        imageRequestTask = Task {
+            if let image = try? await ImageRequest(imageID: user.id).send() {
+                self.profileImageView.image = image
+            }
+            imageRequestTask = nil
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

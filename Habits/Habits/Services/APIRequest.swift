@@ -6,12 +6,20 @@
 //
 
 import Foundation
+import UIKit
 
+//MARK: Enumerations
 enum APIRequestError: Error {
     case itemsNotFound
     case requestFailed
 }
 
+enum ImageRequestError: Error {
+    case couldNotInitializeFromData
+    case imageDataMissing
+}
+
+//MARK: - Protocols
 protocol APIRequest {
     associatedtype Response
     
@@ -21,6 +29,7 @@ protocol APIRequest {
     var postData: Data? { get }
 }
 
+//MARK: - Extensions
 extension APIRequest {
     var host: String { "localhost" }
     var port: Int { 8080 }
@@ -55,11 +64,10 @@ extension APIRequest {
 
 extension APIRequest where Response: Decodable {
     func send() async throws -> Response {
-        let (data, response) = try await URLSession.shared.data(for:
-           request)
+        let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse,
-           httpResponse.statusCode == 200 else {
+              httpResponse.statusCode == 200 else {
             throw APIRequestError.itemsNotFound
         }
         
@@ -67,5 +75,22 @@ extension APIRequest where Response: Decodable {
         let decoded = try decoder.decode(Response.self, from: data)
         
         return decoded
+    }
+}
+
+extension APIRequest where Response == UIImage {
+    func send() async throws -> UIImage {
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw ImageRequestError.imageDataMissing
+        }
+        
+        guard let image = UIImage(data: data) else {
+            throw ImageRequestError.couldNotInitializeFromData
+        }
+        
+        return image
     }
 }
